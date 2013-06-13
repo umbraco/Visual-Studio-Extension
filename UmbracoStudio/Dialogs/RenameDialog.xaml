@@ -1,0 +1,20 @@
+﻿<dw:DialogWindow x:Class="Umbraco.UmbracoStudio.Dialogs.RenameDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:dw="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        Title="Rename" Loaded="Window_Loaded" Height="124" Width="372">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44" />
+            <RowDefinition Height="123*" />
+        </Grid.RowDefinitions>
+        <Label Margin="12,10,0,0" HorizontalAlignment="Left" Width="72" Height="23" VerticalAlignment="Top">New Name:</Label>
+
+        <TextBox Name="ItemName" Margin="0,12,12,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" Width="248" />
+        <StackPanel Margin="0,65,2,3" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1"></StackPanel>
+        <dw:DialogButton Name="SaveButton" IsDefault="True" Margin="0,0,93,12" Click="SaveButton_Click" Grid.Row="1" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75">Save</dw:DialogButton>
+        <dw:DialogButton Name="CancelButton" IsCancel="True" Margin="0,0,12,12" Click="CancelButton_Click" Grid.Row="1" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75">Cancel</dw:DialogButton>
+    </Grid>
+    </dw:DialogWindow>

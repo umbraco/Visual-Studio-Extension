@@ -1,0 +1,14 @@
+﻿<Window x:Class="UmbracoStudioApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:tab="clr-namespace:FabTab;assembly=FabTab"
+        Title="Umbraco Studio" Height="600" Width="800" Loaded="MainWindow_OnLoaded">
+    <Grid Name="Grid" Loaded="MainWindow_OnLoaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="357" />
+            <ColumnDefinition Width="421"/>
+        </Grid.ColumnDefinitions>
+        
+        <tab:FabTabControl Name="fabTab" Grid.Column="1"></tab:FabTabControl>
+        <GridSplitter Width="5" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left"></GridSplitter>
+    </Grid>
+</Window>

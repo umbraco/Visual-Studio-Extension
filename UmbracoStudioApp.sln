@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoStudioApp", "UmbracoStudioApp\UmbracoStudioApp.csproj", "{2E669058-F5D1-4B93-9A51-9C1E94761C5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoStudio", "UmbracoStudio\UmbracoStudio.csproj", "{C3E150B1-400D-4FF3-8D2D-387E75DD7142}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B47D7C2E-DAD0-4FD0-8785-1F941622B3E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.VisualStudio", "Umbraco.VisualStudio\Umbraco.VisualStudio.csproj", "{13B0C330-035B-4B98-A60F-5C9D7A67D658}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D7C11021-0582-4845-9D1C-F21722D25DDB}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E669058-F5D1-4B93-9A51-9C1E94761C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E669058-F5D1-4B93-9A51-9C1E94761C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E669058-F5D1-4B93-9A51-9C1E94761C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E669058-F5D1-4B93-9A51-9C1E94761C5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E150B1-400D-4FF3-8D2D-387E75DD7142}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E150B1-400D-4FF3-8D2D-387E75DD7142}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E150B1-400D-4FF3-8D2D-387E75DD7142}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E150B1-400D-4FF3-8D2D-387E75DD7142}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13B0C330-035B-4B98-A60F-5C9D7A67D658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13B0C330-035B-4B98-A60F-5C9D7A67D658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13B0C330-035B-4B98-A60F-5C9D7A67D658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13B0C330-035B-4B98-A60F-5C9D7A67D658}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

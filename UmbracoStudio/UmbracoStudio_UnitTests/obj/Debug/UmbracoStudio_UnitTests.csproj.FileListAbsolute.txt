@@ -1,0 +1,1 @@
+C:\Temp\Playground\UmbracoStudioApp\UmbracoStudio\UmbracoStudio_UnitTests\obj\Debug\UmbracoStudio_UnitTests.csprojResolveAssemblyReference.cache

@@ -1,0 +1,29 @@
+﻿<dw:DialogWindow x:Class="Umbraco.UmbracoStudio.Dialogs.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:dw="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        x:Name="aboutDialog" WindowStartupLocation="CenterOwner"
+        Loaded="Window_Loaded" SizeToContent="WidthAndHeight" ResizeMode="NoResize" mc:Ignorable="d" d:DesignHeight="320" d:DesignWidth="342"
+        Title="About" Height="400" Width="300">
+    
+    <Grid ClipToBounds="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="117*" />
+            <RowDefinition Height="109" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <TextBlock VerticalAlignment="Center" Margin="5,31,5,70" TextWrapping="Wrap" Height="35">                
+            <Bold> Umbraco Studio </Bold> for Visual Studio</TextBlock>
+        <TextBlock Margin="5,0,5,103" Height="60" VerticalAlignment="Bottom" Grid.RowSpan="2">
+                For support, feedback and full source code, go to:<LineBreak/>
+                <Bold>github.com/umbraco</Bold>
+                <LineBreak/>
+        </TextBlock>
+        <TextBlock Name="Version" VerticalAlignment="Center" Margin="5,54,5,46" Height="16">Version:</TextBlock>
+
+        <dw:DialogButton  IsDefault="True" Name="OKButton" Click="OKButton_Click" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,12">OK</dw:DialogButton>
+        <TextBlock Height="111" Margin="5,128,5,6" Name="txtStatus" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Grid.RowSpan="2"></TextBlock>
+    </Grid>
+</dw:DialogWindow>

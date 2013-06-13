@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="UmbracoStudioApp.ToolWindows.ExplorerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             Loaded="ToolWindow_Loaded">
+    <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"  />
+            <RowDefinition  />
+        </Grid.RowDefinitions>
+        
+        <ToolBar Name="ExplorerToolbar" Grid.Row="0">
+            <Button Name="Refresh" Click="ToolbarRefresh_Click" ToolTip="Refresh" >
+                <Image Height="20" Width="20" Source="../Resources/refresh.png" />
+            </Button>
+        </ToolBar>
+        
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Name="ScrollViewer">
+            <TreeView Name="DataTreeView" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Background="#FFFFFFFF" BorderBrush="#FFFFFFFF" Foreground="#FFFFFFFF">
+                <TreeView.Resources>
+                    <Style TargetType="TreeViewItem">
+                        <EventSetter Event="MouseRightButtonDown" Handler="TreeViewItem_MouseRightButtonDown"></EventSetter>
+                    </Style>
+                </TreeView.Resources>
+                <TreeViewItem Name="ItemDataSources">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Resources/file.png" Height="16" Width="16"></Image>
+                            <TextBlock Name="TxtDataSources" Padding="3" Text="Umbraco Data"></TextBlock>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+            </TreeView>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
