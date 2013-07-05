@@ -18,7 +18,7 @@
             <Bold> Umbraco Studio </Bold> for Visual Studio</TextBlock>
         <TextBlock Margin="5,0,5,103" Height="60" VerticalAlignment="Bottom" Grid.RowSpan="2">
                 For support, feedback and full source code, go to:<LineBreak/>
-                <Bold>github.com/umbraco</Bold>
+                <Bold>github.com/umbraco/Visual-Studio-Extension</Bold>
                 <LineBreak/>
         </TextBlock>
         <TextBlock Name="Version" VerticalAlignment="Center" Margin="5,54,5,46" Height="16">Version:</TextBlock>

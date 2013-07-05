@@ -37,11 +37,12 @@ namespace Umbraco.UmbracoStudio.Dialogs
 
             txtStatus.Text = "Valid Umbraco Solution running -> \n";
             txtStatus.Text += "Is solution open? " + ReturnYesNo(solutionManager.IsSolutionOpen) + "\n";
+            txtStatus.Text += "Is an Umbraco website solution? " + ReturnYesNo(solutionManager.DefaultProject.IsUmbracoWebsite()) + "\n";
+            txtStatus.Text += "Is database configured in config? " + ReturnYesNo(solutionManager.DefaultProject.IsDatabaseConfigured()) + "\n";
             txtStatus.Text += "Default Project Name: " + solutionManager.DefaultProjectName + "\n";
             txtStatus.Text += "Default Project (FullPath): " + solutionManager.DefaultProject.GetFullPath() + "\n";
             txtStatus.Text += "Default Project (OutputPath): " + solutionManager.DefaultProject.GetOutputPath() + "\n";
-            txtStatus.Text += "Is an Umbraco website solution? " + ReturnYesNo(solutionManager.DefaultProject.IsUmbracoWebsite()) + "\n";
-            txtStatus.Text += "Is database configured in config? " + ReturnYesNo(solutionManager.DefaultProject.IsDatabaseConfigured()) + "\n";
+            
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
