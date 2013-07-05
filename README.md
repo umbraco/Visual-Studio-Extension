@@ -35,6 +35,8 @@ You can navigate the tree and do a limited set of actions like Delete, Rename, M
 
 There is currently a Community Technical Preview available of this extension, which you can download from the [release page](https://github.com/umbraco/Visual-Studio-Extension/releases).
 
+[![Screenr of the CTP Release](http://umbracoreleases.blob.core.windows.net/extensions/ctp-screenr.png)](http://www.screenr.com/lKhH)
+
 **As of now only a CTP release is available and please understand that it is still in a very early stage and therefor also unstable. But please try it out and provide feedback.**
 
 Any questions please ask [@sitereactor](http://twitter.com/sitereactor) on twitter or post an [issue](https://github.com/umbraco/Visual-Studio-Extension/issues).
