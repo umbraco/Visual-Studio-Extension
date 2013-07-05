@@ -19,10 +19,6 @@
                     <Image Height="20" Width="20" Source="../Resources/refresh.png" />
                 </Button>
                 <Separator x:Name="sep1" />
-                <Button Name="Options" Click="Options_Click" ToolTip="Options" Padding="0,0,0,0" >
-                    <Image Height="20" Width="20" Source="../Resources/save.png" />
-                </Button>
-                <Separator x:Name="sep2"  />
                 <Button Name="About" Click="ToolbarAbout_Click" ToolTip="About" Padding="0,0,0,0" >
                     <Image Height="20" Width="20" Source="../Resources/aboutNew.png" />
                 </Button>

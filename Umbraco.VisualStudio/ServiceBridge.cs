@@ -12,6 +12,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 using Umbraco.Core.Standalone;
+using File = System.IO.File;
 
 namespace Umbraco.VisualStudio
 {
@@ -288,8 +289,6 @@ namespace Umbraco.VisualStudio
             if (content == null)
                 return false;
 
-            var xml = content.ToXml();
-
             contentService.Delete(content);
             return true;
         }
@@ -305,16 +304,67 @@ namespace Umbraco.VisualStudio
             contentService.Save(content);
         }
 
-        public void SaveXml(string nodeType, int nodeId, string projectAppDataPath)
+        public bool MoveMediaToRecycleBin(int id)
         {
-            if (nodeType.Equals("contentTypes"))
-            {
-                var contentType = _serviceContext.ContentTypeService.GetContentType(nodeId);
-                var xml = _serviceContext.PackagingService.Export(contentType);
+            var mediaService = _serviceContext.MediaService;
+            var media = mediaService.GetById(id);
+            if (media == null)
+                return false;
+            mediaService.MoveToRecycleBin(media);
+            return true;
+        }
 
-                var fileName = string.Concat(nodeType.TrimEnd('s'), "-", nodeId);
-                var filePath = Path.Combine(projectAppDataPath, fileName);
-                xml.Save(filePath);
+        public bool DeleteMedia(int id)
+        {
+            var mediaService = _serviceContext.MediaService;
+            var media = mediaService.GetById(id);
+            if (media == null)
+                return false;
+
+            mediaService.Delete(media);
+            return true;
+        }
+
+        public void RenameMedia(int nodeId, string newName)
+        {
+            var mediaService = _serviceContext.MediaService;
+            var media = mediaService.GetById(nodeId);
+            if (media == null)
+                return;
+
+            media.Name = newName;
+            mediaService.Save(media);
+        }
+
+        public void ExportXml(string nodeType, int nodeId, string projectAppDataPath)
+        {
+            var fileName = string.Concat(nodeType.TrimEnd('s'), "-", nodeId, ".xml");
+            var dirPath = Path.Combine(projectAppDataPath, "Serialized");
+            var filePath = Path.Combine(dirPath, fileName);
+
+            if (Directory.Exists(dirPath) == false)
+                Directory.CreateDirectory(dirPath);
+
+            var packaging = new Packaging(_serviceContext);
+            packaging.ExportToFile(filePath, nodeType.TrimEnd('s').ToLowerInvariant(), nodeId);
+        }
+
+        public void ImportXml(string nodeType, int nodeId, string filePath)
+        {
+            string file = File.ReadAllText(filePath);
+            var xml = XElement.Parse(file);
+
+            if (nodeType.Equals("content"))
+            {
+                var content = _serviceContext.PackagingService.ImportContent(xml);
+            }
+            else if (nodeType.Equals("contentTypes"))
+            {
+                var contentTypes = _serviceContext.PackagingService.ImportContentTypes(xml);
+            }
+            else if (nodeType.Equals("dataTypes"))
+            {
+                var dataTypeDefinitions = _serviceContext.PackagingService.ImportDataTypeDefinitions(xml);
             }
         }
 

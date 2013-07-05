@@ -74,7 +74,7 @@ namespace Umbraco.UmbracoStudio.ToolWindows
                 ExplorerToolbar.Foreground = Helpers.VsTheming.GetWindowText();
                 ExplorerToolbar.Background = Helpers.VsTheming.GetCommandBackground();
                 ToolTray.Background = ExplorerToolbar.Background;
-                sep2.Background = sep1.Background = Helpers.VsTheming.GetToolbarSeparatorBackground();
+                sep1.Background = Helpers.VsTheming.GetToolbarSeparatorBackground();
                 DataTreeView.Background = grid1.Background = Helpers.VsTheming.GetToolWindowBackground();
                 Updated.Visibility = System.Windows.Visibility.Hidden;
 
@@ -137,6 +137,10 @@ namespace Umbraco.UmbracoStudio.ToolWindows
             foreach (var tree in treeList)
             {
                 var treeViewItem = AddTreeToTreeView(tree);
+
+                if (tree.Key.Equals("contentTypes"))
+                    treeViewItem.ContextMenu = new ContentTypeRootMenu(new NodeMenuCommandParameters { ExplorerControl = this, NodeType = tree.Key, NodeTypeName = tree.Value}, _parentWindow);
+
                 ItemDataSources.Items.Add(treeViewItem);
             }
 
@@ -159,10 +163,16 @@ namespace Umbraco.UmbracoStudio.ToolWindows
 
                     var children = UmbracoApplicationContext.Current.GetChildrenByType(tree.Key, node.Key);
                     var item = TreeViewHelper.CreateTreeViewItemWithImage(node.Value["Name"], "../Resources/doc2.gif", children.Any());
+                    
                     if(tree.Key.Equals("content") || tree.Key.Equals("media"))
                         item.ContextMenu = new GenericMenu(new NodeMenuCommandParameters {ExplorerControl = this, NodeId = node.Key, NodeType = tree.Key, NodeTypeName = tree.Value, Name = node.Value["Name"]}, _parentWindow);
                     if(tree.Key.Equals("contentTypes"))
                         item.ContextMenu = new ContentTypeMenu(new NodeMenuCommandParameters { ExplorerControl = this, NodeId = node.Key, NodeType = tree.Key, NodeTypeName = tree.Value, Name = node.Value["Name"] }, _parentWindow);
+                    if (tree.Key.Equals("mediaTypes"))
+                        item.ContextMenu = new MediaTypeMenu(new NodeMenuCommandParameters { ExplorerControl = this, NodeId = node.Key, NodeType = tree.Key, NodeTypeName = tree.Value, Name = node.Value["Name"] }, _parentWindow);
+                    if (tree.Key.Equals("dataTypes"))
+                        item.ContextMenu = new DataTypeMenu(new NodeMenuCommandParameters { ExplorerControl = this, NodeId = node.Key, NodeType = tree.Key, NodeTypeName = tree.Value, Name = node.Value["Name"] }, _parentWindow);
+
                     item.NodeId = node.Key;
                     item.NodeType = tree.Key;
                     item.NodeTypeName = tree.Value;
@@ -198,10 +208,16 @@ namespace Umbraco.UmbracoStudio.ToolWindows
 
                 var children = UmbracoApplicationContext.Current.GetChildrenByType(tree.Key, node.Key);
                 var item = TreeViewHelper.CreateTreeViewItemWithImage(node.Value["Name"], "../Resources/doc2.gif", children.Any());
+                
                 if (tree.Key.Equals("content") || tree.Key.Equals("media"))
                     item.ContextMenu = new GenericMenu(new NodeMenuCommandParameters { ExplorerControl = this, NodeId = node.Key, NodeType = tree.Key, NodeTypeName = tree.Value, Name = node.Value["Name"] }, _parentWindow);
                 if (tree.Key.Equals("contentTypes"))
                     item.ContextMenu = new ContentTypeMenu(new NodeMenuCommandParameters { ExplorerControl = this, NodeId = node.Key, NodeType = tree.Key, NodeTypeName = tree.Value, Name = node.Value["Name"] }, _parentWindow);
+                if (tree.Key.Equals("mediaTypes"))
+                    item.ContextMenu = new MediaTypeMenu(new NodeMenuCommandParameters { ExplorerControl = this, NodeId = node.Key, NodeType = tree.Key, NodeTypeName = tree.Value, Name = node.Value["Name"] }, _parentWindow);
+                if (tree.Key.Equals("dataTypes"))
+                    item.ContextMenu = new DataTypeMenu(new NodeMenuCommandParameters { ExplorerControl = this, NodeId = node.Key, NodeType = tree.Key, NodeTypeName = tree.Value, Name = node.Value["Name"] }, _parentWindow);
+
                 item.NodeId = node.Key;
                 item.NodeType = tree.Key;
                 item.NodeTypeName = tree.Value;
@@ -226,11 +242,6 @@ namespace Umbraco.UmbracoStudio.ToolWindows
         {
             var dialog = new AboutDialog();
             dialog.ShowModal();
-        }
-
-        private void Options_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)

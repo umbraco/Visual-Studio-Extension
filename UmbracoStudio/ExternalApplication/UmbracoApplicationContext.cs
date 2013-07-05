@@ -303,6 +303,10 @@ namespace Umbraco.UmbracoStudio.ExternalApplication
             {
                 _bridge.RenameContent(nodeId, newName);
             }
+            else if (nodeType.Equals("media"))
+            {
+                _bridge.RenameMedia(nodeId, newName);
+            }
         }
 
         /// <summary>
@@ -312,7 +316,12 @@ namespace Umbraco.UmbracoStudio.ExternalApplication
         /// <param name="nodeId"></param>
         public void SerializeNode(string nodeType, int nodeId)
         {
-            _bridge.SaveXml(nodeType, nodeId, _projectAppDataFolder);
+            _bridge.ExportXml(nodeType, nodeId, _projectAppDataFolder);
+        }
+
+        public void DeserializeNode(string nodeType, int nodeId, string filePath)
+        {
+            _bridge.ImportXml(nodeType, nodeId, filePath);
         }
 
         public void Dispose()
@@ -351,12 +360,14 @@ namespace Umbraco.UmbracoStudio.ExternalApplication
 
             _deleteMethods = new Dictionary<string, Func<int, bool>>
                                  {
-                                     {"content", _bridge.DeleteContent}
+                                     {"content", _bridge.DeleteContent},
+                                     {"media", _bridge.DeleteMedia}
                                  };
 
             _trashMethods = new Dictionary<string, Func<int, bool>>
                                 {
-                                    {"content", _bridge.MoveContentToRecycleBin}
+                                    {"content", _bridge.MoveContentToRecycleBin},
+                                    {"media", _bridge.MoveMediaToRecycleBin}
                                 };
 
             _moveMethods = new Dictionary<string, Func<int, int, bool>>
