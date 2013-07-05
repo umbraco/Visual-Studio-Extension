@@ -11,15 +11,21 @@ namespace Umbraco.UmbracoStudio.ContextMenues
         public GenericMenu(NodeMenuCommandParameters parameters, ExplorerToolWindow parent)
         {
             var cmd = new CommonMenuCommandHandler(parent);
-            //Delete
-            CreateDeleteMenuItem(cmd, parameters);
-            //Move
-            CreateMoveMenuItem(cmd, parameters);
-            //Trash
-            CreateTrashMenuItem(cmd, parameters);
+
             //Rename
             CreateRenameMenuItem(cmd, parameters);
+            //Move
+            //CreateMoveMenuItem(cmd, parameters);
             Items.Add(new Separator());
+            
+            //Delete
+            CreateDeleteMenuItem(cmd, parameters);
+            //Trash
+            CreateTrashMenuItem(cmd, parameters);
+
+            Items.Add(new Separator());
+            //Serialize item to xml
+            CreateXmlExportMenuItem(cmd, parameters);
         }
 
         private void CreateDeleteMenuItem(CommonMenuCommandHandler cmd, NodeMenuCommandParameters parameters)
@@ -76,6 +82,20 @@ namespace Umbraco.UmbracoStudio.ContextMenues
                                          };
             renameNodeMenuItem.CommandBindings.Add(renameNodeCommandBinding);
             Items.Add(renameNodeMenuItem);
+        }
+
+        private void CreateXmlExportMenuItem(CommonMenuCommandHandler cmd, NodeMenuCommandParameters parameters)
+        {
+            var serializeNodeCommandBinding = new CommandBinding(MenuCommands.MenuCommand, cmd.SerializeNode);
+            var serializeNodeMenuItem = new MenuItem
+                                            {
+                                                Header = "Serialize item",
+                                                Icon = ImageHelper.GetImageFromResource("../resources/file.png"),
+                                                Command = MenuCommands.MenuCommand,
+                                                CommandParameter = parameters
+                                            };
+            serializeNodeMenuItem.CommandBindings.Add(serializeNodeCommandBinding);
+            Items.Add(serializeNodeMenuItem);
         }
     }
 }

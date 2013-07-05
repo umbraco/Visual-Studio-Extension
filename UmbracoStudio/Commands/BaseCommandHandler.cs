@@ -25,7 +25,6 @@ namespace Umbraco.UmbracoStudio.Commands
 
             try
             {
-                //TODO Call the ServiceBridge through the UmbracoApplicationContext to Delete a node
                 UmbracoApplicationContext.Current.Delete(menuInfo.NodeType, menuInfo.NodeId);
 
                 menuInfo.ExplorerControl.RefreshItems(menuInfo.NodeType, menuInfo.NodeTypeName, menuInfo.Name);
@@ -45,7 +44,6 @@ namespace Umbraco.UmbracoStudio.Commands
 
             try
             {
-                //TODO Call the ServiceBridge through the UmbracoApplicationContext to move a Content or Media item to the Recycle Bin
                 UmbracoApplicationContext.Current.Trash(menuInfo.NodeType, menuInfo.NodeId);
             }
             catch (Exception ex)
@@ -80,8 +78,7 @@ namespace Umbraco.UmbracoStudio.Commands
 
             try
             {
-                //TODO Call the ServiceBridge through the UmbracoApplicationContext to rename the selected item
-                RenameDialog ro = new RenameDialog(menuInfo.Name);
+                var ro = new RenameDialog(menuInfo.Name);
                 ro.ShowModal();
                 if (ro.DialogResult.HasValue && ro.DialogResult.Value == true && !string.IsNullOrWhiteSpace(ro.NewName) && !menuInfo.Name.Equals(ro.NewName))
                 {
@@ -89,7 +86,7 @@ namespace Umbraco.UmbracoStudio.Commands
                     
                     if (_parentWindow != null && _parentWindow.Content != null)
                     {
-                        ExplorerControl control = _parentWindow.Content as ExplorerControl;
+                        var control = _parentWindow.Content as ExplorerControl;
                         control.RefreshItems(menuInfo.NodeType, menuInfo.NodeTypeName, ro.NewName);
                     }
                 }
@@ -109,6 +106,30 @@ namespace Umbraco.UmbracoStudio.Commands
             try
             {
                 UmbracoApplicationContext.Current.SerializeNode(menuInfo.NodeType, menuInfo.NodeId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured: " + ex.Message);
+            }
+        }
+
+        public void DeserializeNode(object sender, ExecutedRoutedEventArgs e)
+        {
+            var menuInfo = ValidateMenuInfo(sender);
+            if (menuInfo == null)
+                return;
+
+            try
+            {
+                var imo = new ImportDialog();
+
+                if (imo.ShowModal() == true)
+                {
+                    if (!string.IsNullOrWhiteSpace(imo.File) && System.IO.File.Exists(imo.File))
+                    {
+                        UmbracoApplicationContext.Current.DeserializeNode(menuInfo.NodeType, menuInfo.NodeId, imo.File);
+                    }
+                }
             }
             catch (Exception ex)
             {
