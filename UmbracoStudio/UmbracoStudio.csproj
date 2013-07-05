@@ -4,6 +4,8 @@
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -126,11 +128,15 @@
     <Compile Include="Commands\MenuCommands.cs" />
     <Compile Include="Commands\NodeMenuCommandParameters.cs" />
     <Compile Include="ContextMenues\ContentTypeRootMenu.cs" />
+    <Compile Include="ContextMenues\DataTypeMenu.cs" />
     <Compile Include="ContextMenues\GenericMenu.cs" />
     <Compile Include="ContextMenues\ContentTypeMenu.cs" />
     <Compile Include="ContextMenues\MediaTypeMenu.cs" />
     <Compile Include="Dialogs\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ImportDialog.xaml.cs">
+      <DependentUpon>ImportDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\RenameDialog.xaml.cs">
       <DependentUpon>RenameDialog.xaml</DependentUpon>
@@ -183,6 +189,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\vsix-compress.props" />
     <None Include="VisualStudio\app.config" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
@@ -225,6 +234,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\ImportDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\RenameDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -244,8 +257,13 @@
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>
+  <PropertyGroup Label="VsixCompress">
+    <VsixCompressTargets Condition=" '$(VsixCompressTargets)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\packages\VsixCompress.1.0.0.6\tools\vsix-compress.targets ))</VsixCompressTargets>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="$(VsixCompressTargets)" Condition="Exists('$(VsixCompressTargets)')" Label="VsixCompress" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
